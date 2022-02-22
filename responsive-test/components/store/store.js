@@ -28,41 +28,6 @@ class Store {
     });
   }
 
-  createPost(newPost) {
-    axios
-      .post(`${url}/posts`, {
-        id: this.genId,
-        topic: newPost.topic,
-        content: newPost.content,
-        author: newPost.author,
-      })
-      .then((res) => {
-        this.posts.push(res.data);
-      });
-  }
-
-  delPost(id) {
-    axios.delete(`${url}/posts/${id}`).then(() => {
-      this.getAllPost();
-    });
-    axios.delete(`${url}/comments/${id}`).then(() => {
-      this.getAllCommentsByIdPost();
-    });
-  }
-
-  updatePost(editThePost) {
-    axios
-      .put(`${url}/posts/${editThePost.id}`, {
-        topic: editThePost.topic,
-        content: editThePost.content,
-        author: editThePost.author,
-        id: editThePost.id,
-      })
-      .then((res) => {
-        this.posts.push(res.data);
-      });
-  }
-
   likePost(id, like) {
     axios.patch(`${url}/posts/${id}`, { like: like }).then((res) => {
       this.posts.push(res.data);
